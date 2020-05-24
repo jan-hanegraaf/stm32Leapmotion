@@ -4,13 +4,13 @@
  *  Created on: Jan 30, 2020
  *      Author: 20004719
  */
-
+#include "usbd_cdc_if.h"
 #include "ssd1306.h"
 #include <string.h>
 #include <stdio.h>
 
 void ssd1306_TestBorder() {
-    ssd1306_Fill(Black);
+
 
     uint32_t start = HAL_GetTick();
     uint32_t end = start;
@@ -39,16 +39,61 @@ void ssd1306_TestBorder() {
 }
 
 void ssd1306_TestFonts() {
-    ssd1306_Fill(Black);
-    ssd1306_SetCursor(2, 0);
-    ssd1306_WriteString("Font 16x26", Font_16x26, White);
-    ssd1306_SetCursor(2, 26);
-    ssd1306_WriteString("Font 11x18", Font_11x18, White);
-    ssd1306_SetCursor(2, 26+18);
-    ssd1306_WriteString("Font 7x10", Font_7x10, White);
-    ssd1306_SetCursor(2, 26+18+10);
-    ssd1306_WriteString("Font 6x8", Font_6x8, White);
-    ssd1306_UpdateScreen();
+	while(1){
+/*		char x[3];
+		char z[3];
+		for(int i=0; i <Length;i++){
+			char test = testing[i];
+			int temp;
+			if(strcmp(test,'X')==0){
+				temp = i;
+
+			}
+			if(strcmp(test,'Z')==0){
+				for (int j =0; j < (i-temp);j++){
+					x[j]=testing[temp+j+1];
+				}
+				temp = i;
+			}
+			if(strcmp(test,'*')==0){
+				for (int g =0; g < (i-temp);g++){
+					z[g]=testing[temp+g+1];
+				}
+			}
+			ssd1306_SetCursor(2, 0);
+			ssd1306_WriteString(x, Font_11x18, White);
+		}
+
+		      ssd1306_SetCursor(2, 18);
+		      ssd1306_WriteString(&*testing, Font_11x18, White);
+		      ssd1306_UpdateScreen();
+}
+*/
+		ssd1306_Fill(Black);
+				char x[3];
+				char z[3];
+				x[0]=testing[1];
+				x[1]=testing[2];
+				x[2]=testing[3];
+
+				z[0]= testing[5];
+				z[1]= testing[6];
+				z[2]= testing[7];
+
+
+
+				// ssd1306_SetCursor(2, 18);
+				// ssd1306_WriteString(x, Font_11x18, White);
+				// ssd1306_SetCursor(2, 18+18);
+				// ssd1306_WriteString(z, Font_11x18, White);
+				// ssd1306_UpdateScreen();
+				 int locx;
+				 int locz;
+				 sscanf(x, "%d", &locx);
+				 sscanf(z, "%d", &locz);
+				 ssd1306_DrawPixel(locx, locz, White);
+				 ssd1306_UpdateScreen();
+}
 }
 
 void ssd1306_TestFPS() {

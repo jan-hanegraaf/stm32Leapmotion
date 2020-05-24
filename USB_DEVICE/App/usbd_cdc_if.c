@@ -268,10 +268,12 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   CDC_Transmit_FS(Buf,*Len);
-   ssd1306_Fill(Black);
-   ssd1306_SetCursor(2, 0);
-   ssd1306_WriteString(&Buf[0], Font_16x26, White);
-   ssd1306_UpdateScreen();
+
+  for(int i=0; i < *Len; i++){
+	  testing[i] =UserRxBufferFS[i];
+  }
+  Length = *Len;
+
   return (USBD_OK);
   /* USER CODE END 6 */
 }
