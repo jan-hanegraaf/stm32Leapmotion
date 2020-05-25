@@ -21,15 +21,15 @@ Pointable pointable = frame.pointables().frontmost();
 Vector stabilizedPosition = pointable.stabilizedTipPosition();//Finger frontFinger = hand.fingers().frontmost();
   text( stabilizedPosition+"zone", 50, 150 );
   int locX = (int)stabilizedPosition.getX();
-  if(locX <0){
+  if(locX <-250){
     locX=0;
   }
   int locZ = (int)stabilizedPosition.getZ();
-    if(locZ <0){
+    if(locZ <-250){
     locX=0;
   }
-  int locXBounds = (int)map(locX, 0, 350, 0, 127);
-  int locZBounds = (int)map(locZ, 0, 350, 0, 127);
+  int locXBounds = (int)map(locX, -250, 250, 0, 127);
+  int locZBounds = (int)map(locZ, -250, 250, 0, 63);
   String locationX="";
   String locationZ="";
   if (locXBounds%10 != locXBounds)
@@ -38,6 +38,8 @@ Vector stabilizedPosition = pointable.stabilizedTipPosition();//Finger frontFing
   locationX = "0" + locXBounds;
     if (locXBounds%1000 != locXBounds)
   locationX =""+locXBounds;
+   if (locXBounds==0)
+  locationX ="00"+locXBounds;
   
     if (locZBounds%10 != locZBounds)
   locationZ = "00" + locZBounds;
@@ -45,6 +47,8 @@ Vector stabilizedPosition = pointable.stabilizedTipPosition();//Finger frontFing
   locationZ = "0" + locZBounds;
     if (locZBounds%1000 != locZBounds)
   locationZ =""+locZBounds;
+  if (locZBounds==0)
+  locationX ="00"+locZBounds;
   text( locationX+locationZ+"zone", 50, 200 );
   myPort.write(locationX+locationZ);
   delay(20);
