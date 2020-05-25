@@ -8,6 +8,8 @@
 #include "ssd1306.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
+
 
 void ssd1306_TestBorder() {
 
@@ -39,6 +41,13 @@ void ssd1306_TestBorder() {
 }
 
 void ssd1306_TestFonts() {
+	time_t t;
+	srand((unsigned) &t);
+	int check =0;
+	int randx = rand()%128;
+	int randy = rand()%63;
+	 ssd1306_DrawPixel(randx, randy, White);
+	 ssd1306_UpdateScreen();
 	while(1){
 /*		char x[3];
 		char z[3];
@@ -69,18 +78,14 @@ void ssd1306_TestFonts() {
 		      ssd1306_UpdateScreen();
 }
 */
+
 		ssd1306_Fill(Black);
 				char x[3];
 				char z[3];
-				x[0]=testing[1];
-				x[1]=testing[2];
-				x[2]=testing[3];
-
-				z[0]= testing[5];
-				z[1]= testing[6];
-				z[2]= testing[7];
-
-
+for(int index =0; index <3; index++){
+	x[index]=testing[index+1];
+	z[index]= testing[index+5];
+}
 
 				// ssd1306_SetCursor(2, 18);
 				// ssd1306_WriteString(x, Font_11x18, White);
@@ -92,8 +97,17 @@ void ssd1306_TestFonts() {
 				 sscanf(x, "%d", &locx);
 				 sscanf(z, "%d", &locz);
 				 ssd1306_DrawPixel(locx, locz, White);
+				 ssd1306_DrawPixel(randx, randy, White);
 				 ssd1306_UpdateScreen();
+if( (locx == randx) && (locz == randy)){
+	break;
 }
+}
+	ssd1306_SetCursor(2, 18);
+	ssd1306_Fill(Black);
+	ssd1306_WriteString("Yeaj", Font_11x18, White);
+    ssd1306_UpdateScreen();
+
 }
 
 void ssd1306_TestFPS() {
@@ -134,8 +148,8 @@ void ssd1306_TestFPS() {
 
 void ssd1306_TestAll() {
     ssd1306_Init();
-    ssd1306_TestFPS();
-    HAL_Delay(3000);
-    ssd1306_TestBorder();
+  //  ssd1306_TestFPS();
+  //  HAL_Delay(3000);
+  //  ssd1306_TestBorder();
     ssd1306_TestFonts();
 }
