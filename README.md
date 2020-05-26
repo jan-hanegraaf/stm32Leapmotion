@@ -9,6 +9,8 @@ Aan de STM kant van het project wordt de zojuist ontvangen waarde uit de buffer 
 De speelse toepassing die we gekozen hebben is dat je met de getekende pixel van de handlocatie een random gegenereerde pixel dient te "vangen".
 Als uitbereiding hierbij hebben we een menu voorzien waarin je kunt kiezen om door te spelen of te stoppen. hierbij word de keuze puur gebaseerd op basis van de kant waar de hand positie zich bevind.
 
+in de map leapV1 staat de java code, en in core->source->main.c staat de C-code.
+
 <i>link naar de video demonstratie: https://drive.google.com/file/d/1MUtedUv3HyfUfhUrnAdrfcm2BhYjN70K/view?fbclid=IwAR3HknYq5nVwUCKMyuF2t7tBH4M_8D7pp2hsU5D-TTVX5SzxzedZzi_F0q0</i>
 
 <img align="center" src="https://images.squarespace-cdn.com/content/v1/57bfa41debbd1a395f0edf68/1584722444826-3QGPNDPS8N2QV6SUOU2C/ke17ZwdGBToddI8pDm48kJcQqSupaQ8ME-CpCzJvW1AUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcLRyezCat90lXN39-p-cXdsCLvA__x_4SbjXXBQQdd4UjGKnGFLtBRbLkH_cFMBof/controller-2.png " width="400" height="400">
