@@ -21,12 +21,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
-#include "ssd1306.h"
-#include "usbd_cdc_if.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include <stdio.h>
+#include "ssd1306.h"
+#include "usbd_cdc_if.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -118,10 +119,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   init();
   while (1)
   {
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
 
   }

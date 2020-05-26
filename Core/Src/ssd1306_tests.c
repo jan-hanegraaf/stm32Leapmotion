@@ -9,147 +9,92 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-
+char x[3];
+char z[3];
+int locx;
+int locz;
 void ssd1306_TestBorder() {
 
+}
+void fetchLocation(){
 
-    uint32_t start = HAL_GetTick();
-    uint32_t end = start;
-    uint8_t x = 0;
-    uint8_t y = 0;
-    do {
-        ssd1306_DrawPixel(x, y, Black);
-
-        if((y == 0) && (x < 127))
-            x++;
-        else if((x == 127) && (y < 63))
-            y++;
-        else if((y == 63) && (x > 0))
-            x--;
-        else
-            y--;
-
-        ssd1306_DrawPixel(x, y, White);
-        ssd1306_UpdateScreen();
-
-        HAL_Delay(5);
-        end = HAL_GetTick();
-    } while((end - start) < 8000);
-
-    HAL_Delay(1000);
+	 char x[3];
+	 		char z[3];
+	 		for(int index =0; index <3; index++){
+	 				x[index]=testing[index+1];
+	 				z[index]= testing[index+5];
+	 		}
+	 		 sscanf(x, "%d", &locx);
+	 		 sscanf(z, "%d", &locz);
+	 		 ssd1306_DrawPixel(locx, locz, White);
+	 		//GPIOA -> ODR |= GPIO_PIN_5;
 }
 
 void ssd1306_TestFonts() {
 	time_t t;
 	srand((unsigned) &t);
-	int check =0;
-	int randx = rand()%128;
-	int randy = rand()%63;
-	 ssd1306_DrawPixel(randx, randy, White);
-	 ssd1306_UpdateScreen();
-	while(1){
-/*		char x[3];
-		char z[3];
-		for(int i=0; i <Length;i++){
-			char test = testing[i];
-			int temp;
-			if(strcmp(test,'X')==0){
-				temp = i;
+	char score = '0';
+		 bool doorgaan = 1;
+	 while(1){
+		 int randx = rand()%128;
+		 int randy = rand()%50 + 10;
+	while(doorgaan){
+		ssd1306_Fill(Black);
+		fetchLocation();
 
-			}
-			if(strcmp(test,'Z')==0){
-				for (int j =0; j < (i-temp);j++){
-					x[j]=testing[temp+j+1];
-				}
-				temp = i;
-			}
-			if(strcmp(test,'*')==0){
-				for (int g =0; g < (i-temp);g++){
-					z[g]=testing[temp+g+1];
-				}
-			}
-			ssd1306_SetCursor(2, 0);
-			ssd1306_WriteString(x, Font_11x18, White);
+		for(int index =0; index <3; index++){
+				x[index]=testing[index+1];
+				z[index]= testing[index+5];
 		}
 
-		      ssd1306_SetCursor(2, 18);
-		      ssd1306_WriteString(&*testing, Font_11x18, White);
-		      ssd1306_UpdateScreen();
-}
-*/
+		 sscanf(x, "%d", &locx);
+		 sscanf(z, "%d", &locz);
+		 ssd1306_DrawPixel(locx, locz, White);
+		 ssd1306_DrawPixel(randx, randy, White);
+		 ssd1306_UpdateScreen();
+		 if( (locx == randx) && (locz == randy)){
+			 	 doorgaan = 0;
+			 	 score++;
+			 	 break;
+		 }
+	 }
 
-		ssd1306_Fill(Black);
-				char x[3];
-				char z[3];
-for(int index =0; index <3; index++){
-	x[index]=testing[index+1];
-	z[index]= testing[index+5];
-}
-
-				// ssd1306_SetCursor(2, 18);
-				// ssd1306_WriteString(x, Font_11x18, White);
-				// ssd1306_SetCursor(2, 18+18);
-				// ssd1306_WriteString(z, Font_11x18, White);
-				// ssd1306_UpdateScreen();
-				 int locx;
-				 int locz;
-				 sscanf(x, "%d", &locx);
-				 sscanf(z, "%d", &locz);
-				 ssd1306_DrawPixel(locx, locz, White);
-				 ssd1306_DrawPixel(randx, randy, White);
-				 ssd1306_UpdateScreen();
-if( (locx == randx) && (locz == randy)){
-	break;
-}
-}
-	ssd1306_SetCursor(2, 18);
-	ssd1306_Fill(Black);
-	ssd1306_WriteString("Yeaj", Font_11x18, White);
+    ssd1306_SetCursor(2, 18);
+    ssd1306_Fill(Black);
+    ssd1306_WriteString("punt erbij...", Font_6x8, White);
+    ssd1306_SetCursor(2, 18+8);
+    ssd1306_WriteString("Wil je doorgaan?", Font_6x8, White);
+    ssd1306_SetCursor(2, 18+18+18);
+    ssd1306_WriteString("ja?", Font_6x8, White);
+    ssd1306_SetCursor(80, 18+18+18);
+    ssd1306_WriteString("nee?", Font_6x8, White);
+    fetchLocation();
     ssd1306_UpdateScreen();
+    if( locx <= 20){
+    	 doorgaan=1;
+ 		ssd1306_Fill(Black);
 
+    	 }
+    if (locx >= 100){
+    	ssd1306_Fill(Black);
+    	ssd1306_SetCursor(2, 18);
+    	ssd1306_WriteString("einde", Font_6x8, White);
+        ssd1306_UpdateScreen();
+
+    	break;
+    	}
+
+
+}
 }
 
 void ssd1306_TestFPS() {
-    ssd1306_Fill(White);
 
-    uint32_t start = HAL_GetTick();
-    uint32_t end = start;
-    int fps = 0;
-    char message[] = "ABCDEFGHIJK";
-
-    ssd1306_SetCursor(2,0);
-    ssd1306_WriteString("Testing...", Font_11x18, Black);
-
-    do {
-        ssd1306_SetCursor(2, 18);
-        ssd1306_WriteString(message, Font_11x18, Black);
-        ssd1306_UpdateScreen();
-
-        char ch = message[0];
-        memmove(message, message+1, sizeof(message)-2);
-        message[sizeof(message)-2] = ch;
-
-        fps++;
-        end = HAL_GetTick();
-    } while((end - start) < 5000);
-
-    HAL_Delay(1000);
-
-    char buff[64];
-    fps = (float)fps / ((end - start) / 1000.0);
-    snprintf(buff, sizeof(buff), "~%d FPS", fps);
-
-    ssd1306_Fill(White);
-    ssd1306_SetCursor(2, 18);
-    ssd1306_WriteString(buff, Font_11x18, Black);
-    ssd1306_UpdateScreen();
 }
 
 void ssd1306_TestAll() {
     ssd1306_Init();
-  //  ssd1306_TestFPS();
-  //  HAL_Delay(3000);
-  //  ssd1306_TestBorder();
     ssd1306_TestFonts();
 }
